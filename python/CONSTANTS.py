@@ -29,6 +29,7 @@ def set_aws_data():
     logger.info("AWS_SECRET_ACCESS_KEY: \n", AWS_SECRET_ACCESS_KEY)
     logger.info("AWS_SESSION_TOKEN: \n", AWS_SESSION_TOKEN)
 
+# ========== PASSWORD SECTION ==========
 
 # Database
 DB_HOST_ENDPOINT = 'dwl2024db2.cjuim2ggwm61.us-east-1.rds.amazonaws.com'
@@ -36,6 +37,24 @@ DB_NAME = 'dwl2024db2'
 DB_PORT = 5432
 DB_USER = 'postgres'
 DB_PASSWORD = 'INSERT PW'
+
+# AWS CLI information --> these change with every instance!
+# but usually only necessary when running local code and not for lambdas
+AWS_ACCESS_KEY_ID = None
+AWS_SECRET_ACCESS_KEY = None
+AWS_SESSION_TOKEN = None
+AWS_REGION = 'us-east-1'
+AWS_TOKEN_STRING = \
+"""
+[default]
+aws_access_key_id=ASIAJQJZJZJZJZJZJZJZ
+aws_secret_access_key=SECRET KEY
+aws_session_token=SESSION TOKEN
+"""
+
+# ======= END OF PASSWORD SECTION =======
+
+
 
 # file paths
 BASE_DATA_PATH = 'data'
@@ -53,19 +72,7 @@ TABLE_NAME_DUMMY = 'dummy_table'
 # S3 bucket names
 S3_BUCKET_NAME = 'dwl2024-airflow-bucket'
 
-# AWS CLI information --> these change with every instance!
-# but usually only necessary when running local code and not for lambdas
-AWS_ACCESS_KEY_ID = None
-AWS_SECRET_ACCESS_KEY = None
-AWS_SESSION_TOKEN = None
-AWS_REGION = 'us-east-1'
-AWS_TOKEN_STRING = \
-"""
-[default]
-aws_access_key_id=ASIAJQJZJZJZJZJZJZJZ
-aws_secret_access_key=SECRET KEY
-aws_session_token=SESSION TOKEN
-"""
+
 
 # Set AWS credentials from copied AWS CLI information for fewer copy pastes :
 set_aws_data()
