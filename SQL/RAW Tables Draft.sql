@@ -34,6 +34,7 @@ CREATE TABLE IF NOT EXISTS weather_data_raw (
     wind_speed FLOAT,
     wind_deg INT,
     wind_gust FLOAT,
+    rain FLOAT,
     cloud_coverage INT,
     country CHAR(2),
     sunrise TIMESTAMP,
