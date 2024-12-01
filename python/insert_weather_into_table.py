@@ -1,17 +1,3 @@
-#
-# This code should be used to insert data from JSON files into a PostgreSQL table. 
-# Make sure the table exists, i.e. the "RAW Tables Draft.sql" script has been executed.
-#
-# This code is still untested.
-#
-# Run this inside a Lambda function.
-
-# TODO: 
-# - Make loading from S3 work
-# - Cache the files that have been loaded to avoid re-loading them. --> e.g. Make a txt-file with the names of the files that have been loaded and put txt-file into S3 as well
-#   --> Maybe, Glue can do this for us?
-
-
 import json
 from datetime import datetime, timezone
 import utils
@@ -19,14 +5,14 @@ import CONSTANTS
 from psycopg2.extras import execute_values
 
 
-def lambda_handler(event, context):
+def insert_weather_data():
 
     # Establish connection to the database
     connection = utils.get_db_connection()
     s3_client = utils.create_s3_client()
 
     # Read all json files from S3
-    files = utils.list_s3_directory_files(CONSTANTS.S3_BUCKET_NAME, CONSTANTS.BASE_DATA_PATH, CONSTANTS.WEATHER_PREFIX)
+    files = utils.list_s3_directory_files(s3_client, CONSTANTS.S3_BUCKET_NAME, CONSTANTS.BASE_DATA_PATH, CONSTANTS.WEATHER_PREFIX)
 
     # only keep the files that have not been loaded yet, i.e. the ones not in the cache
     previously_loaded_files = utils.read_loaded_files_from_cache(s3_client, CONSTANTS.S3_BUCKET_NAME, CONSTANTS.BASE_DATA_PATH, CONSTANTS.WEATHER_PREFIX)
@@ -39,12 +25,6 @@ def lambda_handler(event, context):
 
         # Insert data into PostgreSQL
         insert_raw_data_weather_single_file(data, connection)
-
-    # Return a success message
-    return {
-        'statusCode': 200,
-        'body': json.dumps('Data inserted successfully.')
-    }
 
 
 def insert_raw_data_weather_single_file(data, connection):
@@ -109,8 +89,3 @@ def insert_raw_data_weather_single_file(data, connection):
     cursor.close()
 
 
-if __name__ == '__main__':
-    # For local testing
-    with open('../data/weather_data_2024-10-24_07-04-18.json') as f:
-        event = {'data': f.read()}
-        lambda_handler(event, None)

@@ -1,9 +1,3 @@
-#
-# This code should be used to insert data from JSON files into a PostgreSQL table. 
-# Make sure the table exists, i.e. the "RAW Tables Draft.sql" script has been executed.
-#
-# Run this from your local machine.
-
 import csv
 import utils
 import CONSTANTS
