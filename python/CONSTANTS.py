@@ -70,3 +70,5 @@ aws_session_token=SESSION TOKEN
 # Set AWS credentials from copied AWS CLI information for fewer copy pastes :
 set_aws_data()
 logger.info("CONSTANTS loaded.")
+
+blubb = "blubb"
