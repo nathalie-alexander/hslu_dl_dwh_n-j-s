@@ -17,7 +17,12 @@ def insert_vehicles_data():
     previously_loaded_files = utils.read_loaded_files_from_cache(s3_client, CONSTANTS.S3_BUCKET_NAME, CONSTANTS.BASE_DATA_PATH, CONSTANTS.VEHICLES_PREFIX)
     files_to_load = [file for file in files if file not in previously_loaded_files]
 
+    nof_files = len(files_to_load)
+    currentfile = 0
     for file in files_to_load:
+        currentfile += 1
+        print(f"Loading file {currentfile} of {nof_files}")
+
         # Load the data from the file
         data = utils.load_file_from_s3(s3_client, CONSTANTS.S3_BUCKET_NAME, file)
         data = json.loads(data)
