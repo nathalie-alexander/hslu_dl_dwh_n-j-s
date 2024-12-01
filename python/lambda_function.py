@@ -16,7 +16,7 @@ def lambda_handler(event, context):
     insert_demo_data_into_table.load_demographics_data_to_db(path)
 
     print("LAMBDA_HANDLER: Inserting weather data into the database...")
-    # insert_weather_into_table.insert_weather_data()
+    insert_weather_into_table.insert_weather_data()
 
     print("LAMBDA_HANDLER: Inserting vehicles data into the database...")
     insert_vehicles_into_table.insert_vehicles_data()
