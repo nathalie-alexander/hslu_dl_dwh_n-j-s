@@ -4,14 +4,19 @@ import utils
 import CONSTANTS
 from psycopg2.extras import execute_values
 
+logger = utils.get_logger(__name__)
+
 
 def insert_weather_data():
+
+    logger.info("Inserting weather data into the database...")
 
     # Establish connection to the database
     connection = utils.get_db_connection()
     s3_client = utils.create_s3_client()
 
     # Read all json files from S3
+    logger.info("Reading the cache...")
     files = utils.list_s3_directory_files(s3_client, CONSTANTS.S3_BUCKET_NAME, CONSTANTS.BASE_DATA_PATH, CONSTANTS.WEATHER_PREFIX)
 
     # only keep the files that have not been loaded yet, i.e. the ones not in the cache
@@ -22,7 +27,7 @@ def insert_weather_data():
     current_file = 0
     for file in files_to_load:
         current_file += 1
-        print(f"Loading file {current_file} of {nof_files}")
+        logger.info(f"Loading file {current_file} of {nof_files}")
 
         # Load the data from the file
         data = utils.load_file_from_s3(s3_client, CONSTANTS.S3_BUCKET_NAME, file)
@@ -30,6 +35,12 @@ def insert_weather_data():
 
         # Insert data into PostgreSQL
         insert_raw_data_weather_single_file(data, connection)
+
+    # Write the loaded files to the cache
+    logger.info("Writing the loaded files to the cache...")
+    utils.write_loaded_files_to_cache(files_to_load, s3_client, CONSTANTS.S3_BUCKET_NAME, CONSTANTS.BASE_DATA_PATH, CONSTANTS.WEATHER_PREFIX)
+
+    logger.info("Data inserted successfully.")
 
 
 def insert_raw_data_weather_single_file(data, connection):

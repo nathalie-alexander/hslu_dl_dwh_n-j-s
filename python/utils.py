@@ -13,6 +13,15 @@ logging.basicConfig(level=logging.INFO,
                    datefmt='%H:%M:%S')
 
 
+def get_logger(name):
+    """
+    Get a logger with the given name and format preset in the utils.py file
+    :param name: name of the logger
+    :return: logger object
+    """
+    return logger.getChild(name)
+
+
 def extract_timestamp_from_string(file_name, format="\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}"):
     """
     Extract the timestamp from a string that is formatted like "vehicles_data_2024-10-22_12-04-09.json"
