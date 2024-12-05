@@ -32,11 +32,11 @@ def set_aws_data():
 # ========== PASSWORD SECTION ==========
 
 # Database
-DB_HOST_ENDPOINT = 'dwl2024db2.cjuim2ggwm61.us-east-1.rds.amazonaws.com'
-DB_NAME = 'dwl2024db2'
+DB_HOST_ENDPOINT = 'rawdatadb.cl0q24wcqwfj.us-east-1.rds.amazonaws.com'
+DB_NAME = 'rawdatadb'
 DB_PORT = 5432
 DB_USER = 'postgres'
-DB_PASSWORD = 'INSERT PW'
+DB_PASSWORD = 'insert pw'
 
 # AWS CLI information --> these change with every instance!
 # but usually only necessary when running local code and not for lambdas
@@ -68,6 +68,9 @@ TABLE_NAME_WEATHER_RAW = 'weather_raw'
 TABLE_NAME_VECHICLES_RAW = 'vehicles_raw'
 TABLE_DEMOGRAPHICS_RAW = 'demographics_raw'
 TABLE_NAME_DUMMY = 'dummy_table'
+
+TABLE_NAME_WEATHER_CLEAN = 'weather_clean'
+TABLE_NAME_VECHICLES_CLEAN = 'vehicles_clean'
 
 # S3 bucket names
 S3_BUCKET_NAME = 'dwl2024-airflow-bucket'
