@@ -9,7 +9,7 @@ import CONSTANTS
 import utils
 
 creation_query_vehicle = f"""
-CREATE TABLE IF NOT EXISTS {CONSTANTS.TABLE_NAME_VECHICLES_RAW} (
+CREATE TABLE IF NOT EXISTS {CONSTANTS.TABLE_NAME_VEHICLES_RAW} (
     timestamp TIMESTAMP,
     provider_id VARCHAR(50),
     provider_name VARCHAR(100),
