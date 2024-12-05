@@ -1,4 +1,4 @@
-# Lambda Function to tranform the demographics data and insert into new table
+# Lambda Function to transform the demographics data and insert into new table
 
 import json
 import psycopg2
