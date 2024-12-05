@@ -12,6 +12,11 @@ logging.basicConfig(level=logging.INFO,
                    format="%(asctime)s %(levelname)s - %(module)s.py %(funcName)s(): %(message)s",
                    datefmt='%H:%M:%S')
 
+if len(logging.getLogger().handlers) > 0:
+    # The Lambda environment pre-configures a handler logging to stderr. If a handler is already configured,
+    # `.basicConfig` does not execute. Thus we set the level directly.
+    logging.getLogger().setLevel(logging.DEBUG)
+
 
 def get_logger(name):
     """
@@ -210,7 +215,7 @@ def get_db_connection() -> psycopg2.extensions.connection:
                 password=CONSTANTS.DB_PASSWORD
             )
         else:
-            logger.warning("Database creation failed due to the following error:", e)
+            logger.warning(f"Database creation failed due to the following error:\n{e}")
             return
 
     return connection
@@ -230,7 +235,7 @@ def create_table(connection, query):
         cursor.close()
         logger.info(f"Table created successfully.")
     except Exception as e:
-        logger.warning(f"Table could not be created due to the following error:", e)
+        logger.warning(f"Table could not be created due to the following error:\n{e}")
 
 
 def create_database(connection, db_name):
@@ -241,13 +246,14 @@ def create_database(connection, db_name):
     :return:
     """
     try:
+        raise Exception("Database creation is disabled.")
         cursor = connection.cursor()
         cursor.execute(f"CREATE DATABASE {db_name}")
         connection.commit()
         cursor.close()
         logger.info(f"Database {db_name} created successfully.")
     except Exception as e:
-        logger.warning(f"Database {db_name} could not be created due to the following error:", e)
+        logger.warning(f"Database {db_name} could not be created due to the following error:\n{e}")
 
 
 def clear_table(connection, table_name):
@@ -265,7 +271,7 @@ def clear_table(connection, table_name):
         cursor.close()
         logger.info(f"Table {table_name} cleared successfully.")
     except Exception as e:
-        logger.warning(f"Table {table_name} could not be cleared due to the following error:", e)
+        logger.warning(f"Table {table_name} could not be cleared due to the following error:\n{e}")
 
 
 def load_file_from_s3(s3_client, s3_bucket_name, file):
@@ -284,7 +290,7 @@ def load_file_from_s3(s3_client, s3_bucket_name, file):
         data = response['Body'].read().decode(format)
         return data
     except Exception as e:
-        logger.error(f"Could not load data from S3 due to the following error:", e)
+        logger.error(f"Could not load data from S3 due to the following error:\n{e}")
     return None
 
 

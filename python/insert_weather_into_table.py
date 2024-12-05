@@ -16,14 +16,23 @@ def insert_weather_data():
     s3_client = utils.create_s3_client()
 
     # Read all json files from S3
-    logger.info("Reading the cache...")
+    logger.info("Collecting all files in S3...")
     files = utils.list_s3_directory_files(s3_client, CONSTANTS.S3_BUCKET_NAME, CONSTANTS.BASE_DATA_PATH, CONSTANTS.WEATHER_PREFIX)
+    logger.info(f"Number of files found on s3 bucket: {len(files)}")
 
     # only keep the files that have not been loaded yet, i.e. the ones not in the cache
+    logger.info("Reading the cache...")
     previously_loaded_files = utils.read_loaded_files_from_cache(s3_client, CONSTANTS.S3_BUCKET_NAME, CONSTANTS.BASE_DATA_PATH, CONSTANTS.WEATHER_PREFIX)
+    logger.info(f"Number of files already loaded: {len(previously_loaded_files)}")
     files_to_load = [file for file in files if file not in previously_loaded_files]
 
     nof_files = len(files_to_load)
+    logger.info(f"Number of files to load: {nof_files}")
+
+    if nof_files == 0:
+        logger.info("No new files to load. Return.")
+        return
+
     current_file = 0
     for file in files_to_load:
         current_file += 1
