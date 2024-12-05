@@ -6,7 +6,7 @@ import psycopg2
 
 def lambda_handler(event, context):
     try:
-        # Verbindung zur PostgreSQL-Datenbank herstellen
+        # create connection to the PostgreSQL-Database
         conn = psycopg2.connect(
             host="rawdatadb.cl0q24wcqwfj.us-east-1.rds.amazonaws.com", 
             database="rawdatadb", 
@@ -16,7 +16,7 @@ def lambda_handler(event, context):
         )
         cursor = conn.cursor()
 
-        # SQL-Befehl zum Erstellen der gefilterten Tabelle ohne unit_value
+        # SQL-command to create the cleaned table
         sql = """
         CREATE TABLE IF NOT EXISTS demographics_clean AS
         SELECT 
@@ -46,27 +46,27 @@ def lambda_handler(event, context):
             );
         """
 
-        # SQL-Befehl ausführen
+        # execute SQL-command
         cursor.execute(sql)
 
-        # Änderungen speichern
+        # save changes
         conn.commit()
 
-        # Erfolgsmeldung zurückgeben
+        # give back success message
         return {
             "statusCode": 200,
             "body": "Tabelle demographics_filtered wurde erfolgreich erstellt (ohne unit_value)."
         }
 
     except Exception as e:
-        # Fehler behandeln und zurückgeben
+        # error handling
         return {
             "statusCode": 500,
             "body": f"Ein Fehler ist aufgetreten: {str(e)}"
         }
 
     finally:
-        # Verbindung und Cursor schließen
+        # close connection and cursor
         if 'cursor' in locals():
             cursor.close()
         if 'conn' in locals():
