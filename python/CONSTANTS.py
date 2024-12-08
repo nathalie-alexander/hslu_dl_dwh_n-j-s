@@ -65,8 +65,9 @@ DUMMY_PREFIX = 'dummy_data'
 
 # RDS table names
 TABLE_NAME_WEATHER_RAW = 'weather_raw'
-TABLE_NAME_VECHICLES_RAW = 'vehicles_raw'
+TABLE_NAME_VEHICLES_RAW = 'vehicles_raw'
 TABLE_DEMOGRAPHICS_RAW = 'demographics_raw'
+TABLE_PROVIDERS = 'providers'
 TABLE_NAME_DUMMY = 'dummy_table'
 
 TABLE_NAME_WEATHER_CLEAN = 'weather_clean'

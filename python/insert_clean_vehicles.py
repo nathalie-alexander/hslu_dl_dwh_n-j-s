@@ -28,11 +28,15 @@ def insert_vehicles_data():
         cursor.execute(fetch_query)
         rows = cursor.fetchall()
 
-        #TODO: read from table instead of json file
+        # Fetch provider data from the providers table
+        providers_query = """
+        SELECT provider_id, vehicle_type FROM providers;
+        """
+        cursor.execute(providers_query)
+        provider_rows = cursor.fetchall()
 
-        # Read JSON file providers_data_Stella.json
-        with open("C:/Users/natha/OneDrive - Hochschule Luzern/Project DWL/Code/providers_data_Stella.json", "r") as file:
-            providers_data = json.load(file)
+        # Create a dictionary for quick lookup
+        providers_data = {row[0]: row[1] for row in provider_rows}
 
         # Prepare insert query for the clean table
         insert_query = """
@@ -43,11 +47,8 @@ def insert_vehicles_data():
         """
 
         def get_vehicle_type(provider_id):
-            """Find the vehicle type for the given provider_id in the JSON data."""
-            for provider in providers_data:
-                if provider["provider_id"] == provider_id:
-                    return provider.get("vehicle_type", [])
-            return []  # Return an empty list if provider_id is not found
+            """Find the vehicle type for the given provider_id in the providers table."""
+            return providers_data.get(provider_id, [])
 
         entries = len(rows)
         n = 1
@@ -56,12 +57,16 @@ def insert_vehicles_data():
         for row in rows:
             timestamp, latitude, longitude, vehicle_id, provider_id, available, pickup_type = row
             
-            # Find the vehicle_type for the provider_id in the JSON data
+            # Find the vehicle_type for the provider_id in the providers table
             vehicle_types = get_vehicle_type(provider_id)
 
-            #TODO: possibly adapt the covered/uncovered logic
             # Determine the type: covered or uncovered
-            type = "covered" if "Car" in vehicle_types else "uncovered"
+            if "Car" in vehicle_types and "Bike" in vehicle_types:
+                type = "mixed"
+            elif "Car" in vehicle_types:
+                type = "covered"
+            else:
+                type = "uncovered"
 
             # Prepare data for insertion
             clean_row = (timestamp, latitude, longitude, vehicle_id, type, provider_id, available, pickup_type)

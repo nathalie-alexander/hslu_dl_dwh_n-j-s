@@ -72,6 +72,22 @@ CREATE TABLE IF NOT EXISTS {CONSTANTS.TABLE_DEMOGRAPHICS_RAW} (
 );
 """
 
+creation_query_providers = f"""
+    CREATE TABLE IF NOT EXISTS {CONSTANTS.TABLE_PROVIDERS} (
+    provider_id TEXT PRIMARY KEY,
+    name TEXT,
+    ttl INTEGER,
+    language TEXT,
+    vehicle_type TEXT[],
+    timezone TEXT,
+    rental_apps JSONB,
+    url TEXT,
+    email TEXT,
+    phone_number TEXT,
+    last_updated BIGINT
+);
+"""
+
 creation_query_dummy = f"""
 CREATE TABLE IF NOT EXISTS {CONSTANTS.TABLE_NAME_DUMMY} (
     id SERIAL PRIMARY KEY,
@@ -96,6 +112,7 @@ def create_tables():
     utils.create_table(connection, creation_query_vehicle)
     utils.create_table(connection, creation_query_weather)
     utils.create_table(connection, creation_query_demographics)
+    utils.create_table(connection, creation_query_providers)
     utils.create_table(connection, creation_query_dummy)
 
     # List the tables
