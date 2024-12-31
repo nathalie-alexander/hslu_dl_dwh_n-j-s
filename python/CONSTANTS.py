@@ -36,7 +36,11 @@ DB_HOST_ENDPOINT = 'rawdatadb.cl0q24wcqwfj.us-east-1.rds.amazonaws.com'
 DB_NAME = 'rawdatadb'
 DB_PORT = 5432
 DB_USER = 'postgres'
+<<<<<<< HEAD
 DB_PASSWORD = 'postgres'
+=======
+DB_PASSWORD = 'insert pw'
+>>>>>>> 32bca6c62ea741de1e43796b0c87d7011e97b372
 
 # AWS CLI information --> these change with every instance!
 # but usually only necessary when running local code and not for lambdas
@@ -67,7 +71,11 @@ DUMMY_PREFIX = 'dummy_data'
 TABLE_NAME_WEATHER_RAW = 'weather_raw'
 TABLE_NAME_VEHICLES_RAW = 'vehicles_raw'
 TABLE_DEMOGRAPHICS_RAW = 'demographics_raw'
+TABLE_PROVIDERS = 'providers'
 TABLE_NAME_DUMMY = 'dummy_table'
+
+TABLE_NAME_WEATHER_CLEAN = 'weather_clean'
+TABLE_NAME_VECHICLES_CLEAN = 'vehicles_clean'
 
 # S3 bucket names
 S3_BUCKET_NAME = 'my-dwl-bucket'
