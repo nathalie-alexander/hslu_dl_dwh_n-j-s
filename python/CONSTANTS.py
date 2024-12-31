@@ -32,11 +32,11 @@ def set_aws_data():
 # ========== PASSWORD SECTION ==========
 
 # Database
-DB_HOST_ENDPOINT = 'dwl2024db2.cjuim2ggwm61.us-east-1.rds.amazonaws.com'
-DB_NAME = 'dwl2024db2'
+DB_HOST_ENDPOINT = 'rawdatadb.cl0q24wcqwfj.us-east-1.rds.amazonaws.com'
+DB_NAME = 'rawdatadb'
 DB_PORT = 5432
 DB_USER = 'postgres'
-DB_PASSWORD = 'INSERT PW'
+DB_PASSWORD = 'postgres'
 
 # AWS CLI information --> these change with every instance!
 # but usually only necessary when running local code and not for lambdas
@@ -47,9 +47,9 @@ AWS_REGION = 'us-east-1'
 AWS_TOKEN_STRING = \
 """
 [default]
-aws_access_key_id=ASIAJQJZJZJZJZJZJZJZ
-aws_secret_access_key=SECRET KEY
-aws_session_token=SESSION TOKEN
+aws_access_key_id=ASIAWIQOUAXGNESJAWHS
+aws_secret_access_key=6d8r3eWw5Ay3qV6b573gmzyIiLYG80BTsi40h1sp
+aws_session_token=IQoJb3JpZ2luX2VjEGAaCXVzLXdlc3QtMiJGMEQCIE9mj0W3+uBQcbBX+sBAXxOy5CyEaUFPllxOjrTua1NIAiAcvlx5lrREEpUOAG+j8fZA2hxxrHXe9mGxFgQQcYNiLiqkAggZEAEaDDQzMDYwMTE0Mzc1NiIMkOt9yqr4wKAGpv1cKoECOnrAh2P8Gm4HuWfnUH2sYoHDQjrDMhsdXbk6ID1b7kKBo2+Zj+bVk+oV4dFbvunUYfGdpx3ffTpFMT7VSucXe2y6yG86HayB30O/3uuN3phlQ44fqJfwzGaZMSosV4qVS9NsgGq7d1ojBDShxtqw1Z7eH1CW2AiIle8w93L0XtiuC34AKK5xeuHKGskFUPQVP3+QOLPxOtZCvNMQXXpKQ9UeculQ4fMjVZGhGPnO+dGYuU/uen4HT++Ja7ikLACZSwMJ/OfuzZGdZd7bO1ZfJZtG8sBBoyR1DvwC7oPReOBJENG05W9Lkm6VnqaYt9bWOsD0P9Px2a+EeUK6vv/vmQMw3ZbHugY6ngGa/z3zuqLtdCOv2IIfe9EQLX1cOdHZd71nlnWRf+cxchaPiak3mrvUySzxlTrfsZ1UB053yizpvdJm0I6HPOsFOVGtaGi6hWdPRF5cVUwzb+5DXGFfEKumD7GR5NLjnjrndIZZFp+ZTC4GWr/re/ywnphuPG6vrG50ezOjvNH13vvADcPAC6A3scYIwIQL3mXuxPMnFDsHHranFtioXA==
 """
 
 # ======= END OF PASSWORD SECTION =======
@@ -65,12 +65,12 @@ DUMMY_PREFIX = 'dummy_data'
 
 # RDS table names
 TABLE_NAME_WEATHER_RAW = 'weather_raw'
-TABLE_NAME_VECHICLES_RAW = 'vehicles_raw'
+TABLE_NAME_VEHICLES_RAW = 'vehicles_raw'
 TABLE_DEMOGRAPHICS_RAW = 'demographics_raw'
 TABLE_NAME_DUMMY = 'dummy_table'
 
 # S3 bucket names
-S3_BUCKET_NAME = 'dwl2024-airflow-bucket'
+S3_BUCKET_NAME = 'my-dwl-bucket'
 
 
 

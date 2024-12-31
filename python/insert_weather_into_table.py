@@ -23,7 +23,7 @@ def insert_weather_data():
     # only keep the files that have not been loaded yet, i.e. the ones not in the cache
     logger.info("Reading the cache...")
     previously_loaded_files = utils.read_loaded_files_from_cache(s3_client, CONSTANTS.S3_BUCKET_NAME, CONSTANTS.BASE_DATA_PATH, CONSTANTS.WEATHER_PREFIX)
-    logger.info(f"Number of files already loaded: {len(previously_loaded_files)}")
+    logger.info(f"Number of files in cache, i.e. already loaded: {len(previously_loaded_files)}")
     files_to_load = [file for file in files if file not in previously_loaded_files]
 
     nof_files = len(files_to_load)
@@ -34,20 +34,31 @@ def insert_weather_data():
         return
 
     current_file = 0
-    for file in files_to_load:
-        current_file += 1
-        logger.info(f"Loading file {current_file} of {nof_files}")
+    actually_loaded_files = []
 
-        # Load the data from the file
-        data = utils.load_file_from_s3(s3_client, CONSTANTS.S3_BUCKET_NAME, file)
-        data = json.loads(data)
+    try:
+        for file in files_to_load:
+            current_file += 1
+            logger.info(f"Loading file {file} ({current_file} of {nof_files})")
 
-        # Insert data into PostgreSQL
-        insert_raw_data_weather_single_file(data, connection)
+            # Load the data from the file
+            data = utils.load_file_from_s3(s3_client, CONSTANTS.S3_BUCKET_NAME, file)
+            data = json.loads(data)
 
-    # Write the loaded files to the cache
-    logger.info("Writing the loaded files to the cache...")
-    utils.write_loaded_files_to_cache(files_to_load, s3_client, CONSTANTS.S3_BUCKET_NAME, CONSTANTS.BASE_DATA_PATH, CONSTANTS.WEATHER_PREFIX)
+            # Insert data into PostgreSQL
+            insert_raw_data_weather_single_file(data, connection)
+
+            actually_loaded_files.append(file)
+
+    except Exception as e:
+        logger.error(f"Error loading file {file}: {e}")
+    finally:
+        # write the loaded file to the cache
+        utils.write_loaded_files_to_cache(actually_loaded_files,
+                                          s3_client,
+                                          CONSTANTS.S3_BUCKET_NAME,
+                                          CONSTANTS.BASE_DATA_PATH,
+                                          CONSTANTS.WEATHER_PREFIX)
 
     logger.info("Data inserted successfully.")
 
