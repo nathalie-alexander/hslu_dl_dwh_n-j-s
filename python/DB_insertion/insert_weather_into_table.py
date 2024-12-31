@@ -1,7 +1,6 @@
 import json
 from datetime import datetime, timezone
-import utils
-import CONSTANTS
+from python.helpers import utils, CONSTANTS
 from psycopg2.extras import execute_values
 
 logger = utils.get_logger(__name__)

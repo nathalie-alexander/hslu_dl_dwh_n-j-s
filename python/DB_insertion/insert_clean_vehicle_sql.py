@@ -1,6 +1,5 @@
-import utils
-import psycopg2
-import CONSTANTS
+from python.helpers import utils
+
 logger = utils.get_logger(__name__)
 
 def insert_vehicles_data():

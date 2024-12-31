@@ -1,12 +1,10 @@
 """
 This script creates the raw tables in the AWS RDS PostgreSQL database.
 
-Run this script from your local machine.
+Can be run as a standalone script or imported as a module in a lambda function.
 """
 
-import psycopg2
-import CONSTANTS
-import utils
+from python.helpers import utils, CONSTANTS
 
 creation_query_vehicle = f"""
 CREATE TABLE IF NOT EXISTS {CONSTANTS.TABLE_NAME_VEHICLES_RAW} (

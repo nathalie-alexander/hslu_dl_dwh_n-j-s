@@ -1,7 +1,6 @@
-import psycopg2
-import utils
+from python.helpers import utils
 import json
-import CONSTANTS
+
 logger = utils.get_logger(__name__)
 
 def insert_providers_data():

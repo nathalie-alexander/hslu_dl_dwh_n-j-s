@@ -1,6 +1,10 @@
-import psycopg2
-import CONSTANTS
-import utils
+"""
+Creates the clean tables in the AWS RDS PostgreSQL database.
+
+Can be run as a standalone script or imported as a module in a lambda function.
+"""
+
+from python.helpers import utils, CONSTANTS
 
 creation_query_weather = f"""
 CREATE TABLE IF NOT EXISTS {CONSTANTS.TABLE_NAME_WEATHER_CLEAN} (

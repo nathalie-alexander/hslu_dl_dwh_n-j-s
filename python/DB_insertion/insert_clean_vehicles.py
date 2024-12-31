@@ -1,7 +1,5 @@
-import psycopg2
-import utils
-import CONSTANTS
-import json
+from python.helpers import utils
+
 logger = utils.get_logger(__name__)
 
 def insert_vehicles_data():

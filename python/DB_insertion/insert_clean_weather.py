@@ -1,6 +1,5 @@
-import psycopg2
-import utils
-import CONSTANTS
+from python.helpers import utils
+
 logger = utils.get_logger(__name__)
 
 def insert_weather_data():

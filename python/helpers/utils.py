@@ -2,7 +2,6 @@ import psycopg2
 import CONSTANTS
 import boto3
 import os
-import json
 from datetime import datetime
 import re
 import logging
