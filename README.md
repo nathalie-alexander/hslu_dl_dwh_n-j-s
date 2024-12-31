@@ -28,11 +28,11 @@ Students:
 
 
 ## Code Structure
-- data: contains the data for local tests
-- python/DB_creation: contains the code to create the tables in the database
-- python/DB_dwh: contains the code to create the tables in the data warehouse
-- python/DB_insertion: contains the code to insert the data into the tables in the database
-- python/DB_transformation: contains the code to transform the data in the database
-- python/helpers: contains helper functions to connect to database and s3 buckets
-- python/ingestion: contains the code to ingest the data
-- SQL: contains the SQL queries to create the tables in the database and data warehouse
+- `data/`: contains the data for local tests
+- `python/DB_creation/`: contains the code to create the tables in the database
+- `python/DB_dwh/`: contains the code to create the tables in the data warehouse
+- `python/DB_insertion/`: contains the code to insert the data into the tables in the database
+- `python/DB_transformation/`: contains the code to transform the data in the database
+- `python/helpers/`: contains helper functions to connect to database and s3 buckets
+- `python/ingestion/`: contains the code to ingest the data
+- `SQL/`: contains the SQL queries to create the tables in the database and data warehouse
