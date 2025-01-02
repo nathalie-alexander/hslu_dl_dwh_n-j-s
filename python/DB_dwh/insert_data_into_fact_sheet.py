@@ -69,16 +69,6 @@ DB_CONFIG = {
     "port": 5432
 }
 
-import psycopg2
-
-DB_CONFIG = {
-    "host": "rawdatadb.cl0q24wcqwfj.us-east-1.rds.amazonaws.com",
-    "database": "rawdatadb",
-    "user": "postgres",
-    "password": "postgres",
-    "port": 5432
-}
-
 def lambda_handler(event, context):
     try:
         # Connect to the database
