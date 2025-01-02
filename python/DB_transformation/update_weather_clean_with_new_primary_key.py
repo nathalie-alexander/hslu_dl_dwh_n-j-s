@@ -6,7 +6,7 @@ DB_CONFIG = {
     "host": "rawdatadb.cl0q24wcqwfj.us-east-1.rds.amazonaws.com",
     "database": "rawdatadb",
     "user": "postgres",
-    "password": "postgres",
+    "password": "INSERT PW",
     "port": 5432
 }
 
