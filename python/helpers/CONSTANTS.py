@@ -48,9 +48,9 @@ AWS_REGION = 'us-east-1'
 AWS_TOKEN_STRING = \
 """
 [default]
-aws_access_key_id=somekey
-aws_secret_access_key=someaccesskey
-aws_session_token=sometoken
+aws_id=somekey
+aws_key=someaccesskey
+aws_token=sometoken
 """
 
 # ======= END OF PASSWORD SECTION =======
