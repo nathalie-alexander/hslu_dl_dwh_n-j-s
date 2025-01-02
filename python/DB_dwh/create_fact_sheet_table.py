@@ -15,9 +15,9 @@ def lambda_handler(event, context):
         conn = psycopg2.connect(**DB_CONFIG)
         cur = conn.cursor()
         
-        # Create fact_sheet table
+        # create fact_distances query
         create_table_query = """
-        CREATE TABLE IF NOT EXISTS fact_sheet (
+        CREATE TABLE IF NOT EXISTS fact_distances (
             time_id BIGINT NOT NULL,
             vehicle_id VARCHAR(100) NOT NULL,
             geo_nr VARCHAR(10) NOT NULL,
@@ -29,6 +29,7 @@ def lambda_handler(event, context):
             FOREIGN KEY (weather_id) REFERENCES weather_clean (weather_id)
         );
         """
+
         cur.execute(create_table_query)
         conn.commit()
 

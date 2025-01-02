@@ -56,6 +56,13 @@ def lambda_handler(event, context):
         "body": "Regular table temp_vehicle_demographics created successfully."
     }
 #####################################################################################################
+'''
+Between the temp_vehicle_demographics table and the temp_vehicle_weather table we had to download the
+temp_vehicle_demographics data to externally calculate the distances. We had to do this because the
+data load was to large for processing it in a lambda function. The data including the distances was
+reuploaded into temp_distances via the code in file "insert_distnaces_into_temp_distances.py".
+'''
+
 #####################################################################################################
 # create helper table to left join weather and vehicles_demographics
 
@@ -83,7 +90,7 @@ def lambda_handler(event, context):
             tvd.geo_nr,
             tvd.rounded_timestamp,
             w.weather_id
-        FROM temp_vehicle_demographics tvd
+        FROM temp_distances tvd
         LEFT JOIN weather_clean w
         ON tvd.rounded_latitude = w.latitude
         AND tvd.rounded_longitude = w.longitude
@@ -112,7 +119,7 @@ def lambda_handler(event, context):
 
 ##################################################################################################
 ##################################################################################################
-# create fact_sheet table and left joint time_id with vehicle_demographics_weather
+# left joint time_id with vehicle_demographics_weather into fact_distances
 
 import psycopg2
 
@@ -130,15 +137,32 @@ def lambda_handler(event, context):
         conn = psycopg2.connect(**DB_CONFIG)
         cur = conn.cursor()
 
-        # Insert data into fact_sheet while ignoring duplicates
+        # Create the fact_distances table if it does not exist
+        create_table_query = """
+        CREATE TABLE IF NOT EXISTS fact_distances (
+            time_id BIGINT NOT NULL,
+            vehicle_id VARCHAR(100) NOT NULL,
+            geo_nr VARCHAR(10) NOT NULL,
+            weather_id BIGINT NOT NULL,
+            distance FLOAT,
+            PRIMARY KEY (time_id, vehicle_id, geo_nr, weather_id),
+            FOREIGN KEY (time_id) REFERENCES time_clean (time_id),
+            FOREIGN KEY (geo_nr) REFERENCES demographics_clean (geo_nr),
+            FOREIGN KEY (weather_id) REFERENCES weather_clean (weather_id)
+        );
+        """
+        cur.execute(create_table_query)
+        conn.commit()
+
+        # Insert data into fact_distances while ignoring duplicates
         insert_query = """
-        INSERT INTO fact_sheet (time_id, vehicle_id, geo_nr, weather_id, distance)
+        INSERT INTO fact_distances (time_id, vehicle_id, geo_nr, weather_id, distance)
         SELECT 
             t.time_id,
             tvw.vehicle_id,
             tvw.geo_nr,
             tvw.weather_id,
-            NULL AS distance
+            tvw.distance
         FROM temp_vehicle_weather tvw
         LEFT JOIN time_clean t
           ON tvw.rounded_timestamp = t.timestamp
@@ -155,7 +179,7 @@ def lambda_handler(event, context):
             conn.rollback()
         return {
             "statusCode": 500,
-            "body": f"Error inserting data into fact_sheet: {str(e)}"
+            "body": f"Error creating or inserting data into fact_distances: {str(e)}"
         }
     finally:
         if cur:
@@ -165,5 +189,5 @@ def lambda_handler(event, context):
 
     return {
         "statusCode": 200,
-        "body": "Data successfully inserted into fact_sheet, duplicates ignored."
+        "body": "Table fact_distances created and data inserted successfully, duplicates ignored."
     }
