@@ -11,7 +11,7 @@ Students:
 
 ## Technical aspects
 - data ingestion via one lambda function: the coordinates of the vehicles are rounded and the directly used to get the weather data
-- data was collected in 2 different buckets in 2 different accounts. This was chosen as I kind of backup scenario. In order to not have redundant data, in account 1 the lambda function was run at 7:00, 13:00, 19:00 which in account to the lambda function was scheduled at 10:00, 16:00, 22:00
+- data was collected in 2 different buckets in 2 different accounts. This was chosen as I kind of backup scenario. In order to not have redundant data, in account 1 the lambda function was run at 7:00, 13:00, 19:00 while in account 2 the lambda function was scheduled at 10:00, 16:00, 22:00
 
 ## Instructions to run the code
 
