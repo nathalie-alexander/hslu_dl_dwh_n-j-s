@@ -1,5 +1,4 @@
 # lambda function to create helper-table for joining vehicles and demographics:
-
 import psycopg2
 
 DB_CONFIG = {

@@ -1,5 +1,4 @@
 # lambda function to update weather_clean with new primary key (weather_id)
-
 import psycopg2
 
 DB_CONFIG = {

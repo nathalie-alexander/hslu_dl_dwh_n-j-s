@@ -1,13 +1,7 @@
 # Lambda Function to transform the demographics data and insert into new table
-
 import json
 import psycopg2
-
-
-def lambda_handler(event, context):
-    import json
 import os
-import psycopg2
 
 
 def transform_insert_clean_demographics(event, context):
