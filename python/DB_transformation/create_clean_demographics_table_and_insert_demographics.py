@@ -10,7 +10,7 @@ import os
 import psycopg2
 
 
-def lambda_handler(event, context):
+def transform_insert_clean_demographics(event, context):
     # establish connection with DB
     try:
         conn = psycopg2.connect(

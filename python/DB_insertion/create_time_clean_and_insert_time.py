@@ -17,7 +17,7 @@ DB_CONFIG = {
 S3_BUCKET = "hsludwlbucket.stella"
 S3_FILE = "dim_time_daily.csv"
 
-def lambda_handler(event, context):
+def create_insert_clean_time(event, context):
     # Connect to the database
     try:
         conn = psycopg2.connect(**DB_CONFIG)

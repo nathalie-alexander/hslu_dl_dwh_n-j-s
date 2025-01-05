@@ -6,7 +6,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def lambda_handler(event, context):
+def transform_insert_clean_weather(event, context):
     # PostgreSQL-connection details
     host = "rawdatadb.cl0q24wcqwfj.us-east-1.rds.amazonaws.com"
     database = "rawdatadb"

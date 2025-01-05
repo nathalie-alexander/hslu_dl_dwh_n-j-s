@@ -2,7 +2,7 @@ import json
 import psycopg2
 
 
-def lambda_handler(event, context):
+def insert_clean_vehicles(event, context):
     try:
         print("Merging and inserting data into vehicles_clean table...")
 

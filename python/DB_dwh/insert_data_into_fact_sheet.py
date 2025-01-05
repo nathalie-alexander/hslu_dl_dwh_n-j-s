@@ -10,7 +10,7 @@ DB_CONFIG = {
     "port": 5432
 }
 
-def lambda_handler(event, context):
+def merge_vehicles_demographics(event, context):
     try:
         # Connect to the database
         conn = psycopg2.connect(**DB_CONFIG)
@@ -76,7 +76,7 @@ DB_CONFIG = {
     "port": 5432
 }
 
-def lambda_handler(event, context):
+def merge_vehicles_demographics_weather(event, context):
     try:
         # Connect to the database
         conn = psycopg2.connect(**DB_CONFIG)
@@ -131,7 +131,7 @@ DB_CONFIG = {
     "port": 5432
 }
 
-def lambda_handler(event, context):
+def merge_vehicles_demo_weather_time(event, context):
     try:
         # Connect to the database
         conn = psycopg2.connect(**DB_CONFIG)

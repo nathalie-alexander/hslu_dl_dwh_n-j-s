@@ -6,7 +6,7 @@ import psycopg2
 import os
 import io
 
-def lambda_handler(event, context):
+def create_insert_city_coordinates(event, context):
     # PostgreSQL-connection details
     host = "rawdatadb.cl0q24wcqwfj.us-east-1.rds.amazonaws.com"
     database = "rawdatadb"

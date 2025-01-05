@@ -10,7 +10,7 @@ DB_CONFIG = {
     "port": 5432
 }
 
-def lambda_handler(event, context):
+def transform_weather_primarykey(event, context):
     try:
         # Connect to the database
         conn = psycopg2.connect(**DB_CONFIG)

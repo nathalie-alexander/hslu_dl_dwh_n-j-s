@@ -12,7 +12,7 @@ DB_CONFIG = {
 # Batch size (number of rows to process per update)
 BATCH_SIZE = 5000
 
-def lambda_handler(event, context):
+def transform_vehicles_timestamp_coordinates(event, context):
     try:
         # Connect to the database
         conn = psycopg2.connect(**DB_CONFIG)

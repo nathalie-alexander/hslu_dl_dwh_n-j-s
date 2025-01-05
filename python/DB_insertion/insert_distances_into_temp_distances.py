@@ -16,7 +16,7 @@ DB_CONFIG = {
 S3_BUCKET = "hsludwlbucket.stella"
 CSV_FILE_KEY = "temp_vehicle_demographics_with_distance.csv"
 
-def lambda_handler(event, context):
+def insert_distances(event, context):
     try:
         # Connect to S3 and fetch the CSV file
         s3 = boto3.client("s3")
