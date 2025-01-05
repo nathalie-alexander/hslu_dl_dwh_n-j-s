@@ -27,8 +27,7 @@ Students:
    3. Target: Lambda function
 
 
-## Code Structure
-- `data/`: contains the data for local tests
+## Directory Structure
 - `python/DB_creation/`: contains the code to create the tables in the database
 - `python/DB_dwh/`: contains the code to create the tables in the data warehouse
 - `python/DB_insertion/`: contains the code to insert the data into the tables in the database
