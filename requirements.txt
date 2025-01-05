@@ -3,9 +3,3 @@ requests
 boto3
 pandas
 geopy
-json
-csv
-os
-io
-logging
-datetime
